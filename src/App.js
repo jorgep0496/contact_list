@@ -1,25 +1,25 @@
-import logo from './logo.svg';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import './App.css';
+import injectContext from './store/appContext';
+import { AddContact } from './views/AddContact';
+import { Contacts } from './views/Contacts';
+import Home from './views/home';
+import NotFound from './views/notfound';
 
-function App() {
+const App = props => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <BrowserRouter>
+      <Switch>
+
+        <Route exact path="/edit" component={AddContact} />
+        <Route exact path="/add" component={AddContact} />
+        <Route exact path="/contacts/:id/:name" component={Contacts} />
+        <Route exact path="/contacts" component={Contacts} />
+        <Route exact path="/" component={Contacts} />
+        <Route component={NotFound} />
+      </Switch>
+    </BrowserRouter>
+  )
 }
 
-export default App;
+export default injectContext(App);
